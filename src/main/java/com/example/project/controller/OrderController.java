@@ -16,13 +16,13 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @GetMapping("/showAllOrderIds")
+    @GetMapping("/ids")
     @PreAuthorize("hasAuthority('user:read')")
     public List<Integer> showAllOrders() {
         return orderService.showAllOrderIds();
     }
 
-    @GetMapping("/showAllOrderDetails/{orderId}")
+    @GetMapping("/orderDetails/{orderId}")
     @PreAuthorize("hasAuthority('user:read')")
     public List<String> showAllOrderDetailsByOrderId(@PathVariable Integer orderId) {
         return orderService.showAllOrderDetails(orderId);

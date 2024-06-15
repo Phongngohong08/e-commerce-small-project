@@ -13,19 +13,19 @@ public class AdminController {
 
     private final AppUserService userService;
 
-    @GetMapping("/getAllUsers")
+    @GetMapping("/users")
     @PreAuthorize("hasAuthority('admin:read')")
     public Object getAllUsers() {
         return userService.getAllUsers();
     }
 
-    @DeleteMapping("/deleteUser/{userId}")
+    @DeleteMapping("/delete/{userId}")
     @PreAuthorize("hasAuthority('admin:delete')")
     public String delete(@PathVariable("userId") Integer userId) {
         return userService.deleteUser(userId);
     }
 
-    @DeleteMapping("/deleteAllUser")
+    @DeleteMapping("/deleteUsers")
     @PreAuthorize("hasAuthority('admin:delete')")
     public String deleteAll() {
         return userService.deleteAllUsers();

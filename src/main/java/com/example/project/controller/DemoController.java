@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/basic")
-public class BasicController {
+public class DemoController {
 
     private static final List<AppUser> users = List.of(
             new AppUser("John Doe", "john@gmail", "password", Role.USER),
@@ -19,7 +19,7 @@ public class BasicController {
 
     @GetMapping
     public String getBasic() {
-        return "this is a basic controller";
+        return "this is a demo controller";
     }
 
     @GetMapping("/users")

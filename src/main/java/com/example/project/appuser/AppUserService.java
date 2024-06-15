@@ -1,5 +1,8 @@
 package com.example.project.appuser;
 
+import com.example.project.dtos.AppUserDTO;
+import com.example.project.dtos.AppUserDTOMapper;
+import com.example.project.exceptions.ApiRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +17,7 @@ public class AppUserService {
 
     private final AppUserRepository appUserRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AppUserDTOMapper appUserDTOMapper;
 
     public void changePassword(ChangePasswordRequest request, Principal connectedUser) {
 
@@ -34,7 +38,9 @@ public class AppUserService {
 
     public String deleteUser(Integer userId) {
         boolean exists = appUserRepository.existsById(userId);
-        if(!exists){throw new IllegalStateException("User with id " + userId + " does not exist");}
+        if(!exists){
+            throw new ApiRequestException("User with id " + userId + " does not exist");
+        }
         appUserRepository.deleteById(userId);
         return "deleted " + userId;
     }
@@ -44,8 +50,7 @@ public class AppUserService {
         return "All users deleted";
     }
 
-    public List<String> getAllUsers() {
-        List<AppUser> users = appUserRepository.findAll();
-        return users.stream().map(AppUser::getEmail).toList();
+    public List<AppUserDTO> getAllUsers() {
+        return appUserRepository.findAll().stream().map(appUserDTOMapper).toList();
     }
 }
