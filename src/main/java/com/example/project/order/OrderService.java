@@ -60,6 +60,7 @@ public class OrderService {
         ).toList();
     }
 
+
     public List<Integer> showAllOrderIds() {
         return orderRepository.findAll().stream().map(Order::getId).toList();
     }
